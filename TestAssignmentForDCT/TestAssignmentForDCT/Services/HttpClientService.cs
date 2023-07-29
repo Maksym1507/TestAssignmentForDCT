@@ -8,7 +8,7 @@ namespace TestAssignmentForDCT.Services
 {
     public class HttpClientService : IHttpClientService
     {
-        public TResponse Send<TResponse, TRequest>(string url, HttpMethod method, TRequest content = null) where TRequest : class
+        public TResponse Send<TResponse, TRequest>(string url, HttpMethod method, TRequest? content = null) where TRequest : class
         {
             using (var client = new HttpClient())
             {
@@ -28,8 +28,8 @@ namespace TestAssignmentForDCT.Services
 
                 if (result.IsSuccessStatusCode)
                 {
-                    var resultContent = result.Content.ReadAsStringAsync();
-                    var response = JsonConvert.DeserializeObject<TResponse>(resultContent.Result);
+                    var resultContent = result.Content.ReadAsStringAsync().Result;
+                    var response = JsonConvert.DeserializeObject<TResponse>(resultContent);
                     return response!;
                 }
 

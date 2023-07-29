@@ -34,7 +34,7 @@ namespace TestAssignmentForDCT.ViewModels
         {
             int? quantity = obj as int?;
 
-            if (quantity != null)
+            if (quantity != null && quantity > 0 && quantity <= 2000)
             {
                 var coinList = _coinService.GetCertainCoins(quantity.Value);
 

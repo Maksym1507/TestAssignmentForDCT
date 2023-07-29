@@ -11,7 +11,7 @@ namespace TestAssignmentForDCT.Converters
         {
             if (value == null || parameter == null)
             {
-                return value!;
+                return default(int).ToString();
             }
 
             double doubleValue = double.Parse(value.ToString()!, NumberStyles.Any, CultureInfo.InvariantCulture);
