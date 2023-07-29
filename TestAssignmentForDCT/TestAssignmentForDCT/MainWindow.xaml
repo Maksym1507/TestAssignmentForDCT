@@ -3,10 +3,37 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TestAssignmentForDCT"
+        xmlns:local="clr-namespace:TestAssignmentForDCT" xmlns:converters="clr-namespace:TestAssignmentForDCT.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Cryptocurrencies Info" Height="450" Width="500">
+    <Window.Resources>
+        <ResourceDictionary>
+            <converters:NumericFormatConverter x:Key="numericFormatConverter"/>
+        </ResourceDictionary>
+    </Window.Resources>
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="1">                
+            <DataGrid
+                ItemsSource="{Binding Coins}"
+                CanUserAddRows="False" CanUserDeleteRows="False"
+                AutoGenerateColumns="False" Margin="5,0,5,5">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Rank}" Header="Rank" IsReadOnly="True" Width="1*"/>
+                    <DataGridTextColumn Binding="{Binding Name}" Header="Name" IsReadOnly="True" Width="1.5*"/>
+                    <DataGridTextColumn Binding="{Binding PriceUsd, Converter={StaticResource numericFormatConverter}, ConverterParameter=2, StringFormat={} {0:c}$}" Header="PriceUsd" IsReadOnly="True" Width="1.5*"/>
+                    <DataGridTextColumn Binding="{Binding VolumeUsd24Hr, Converter={StaticResource numericFormatConverter}, ConverterParameter=2, StringFormat={} {0:c}$}" Header="Volume" IsReadOnly="True" Width="2.5*"/>
+                    <DataGridTextColumn Binding="{Binding ChangePercent24Hr, Converter={StaticResource numericFormatConverter}, ConverterParameter=2, StringFormat={} {0:p}%}" Header="Change" IsReadOnly="True" Width="1.5*"/>
+                    <DataGridTextColumn Binding="{Binding Vwap24Hr, Converter={StaticResource numericFormatConverter}, ConverterParameter=2, StringFormat={} {0:c}$}" Header="Vwap" IsReadOnly="True" Width="1.5*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            </Grid>
     </Grid>
 </Window>
