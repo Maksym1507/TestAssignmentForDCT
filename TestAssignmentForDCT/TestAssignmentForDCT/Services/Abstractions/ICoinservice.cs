@@ -5,6 +5,6 @@ namespace TestAssignmentForDCT.Services.Abstractions
 {
     public interface ICoinService
     {
-        CoinModel[] GetCertainCoinsAsync(int quantity);
+        CoinModel[] GetCertainCoins(int quantity);
     }
 }

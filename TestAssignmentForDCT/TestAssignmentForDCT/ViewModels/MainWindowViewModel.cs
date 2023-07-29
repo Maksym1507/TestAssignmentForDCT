@@ -12,7 +12,7 @@ namespace TestAssignmentForDCT.ViewModels
         public MainWindowViewModel(ICoinService coinService)
         {
             _coinService = coinService;
-            var coinList = _coinService.GetCertainCoinsAsync(Quantity);
+            var coinList = _coinService.GetCertainCoins(Quantity);
             Coins = new ObservableCollection<CoinModel>(coinList);
         }
 
@@ -29,5 +29,25 @@ namespace TestAssignmentForDCT.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public RelayCommand GetCertainCoinsCommand => new RelayCommand(obj =>
+        {
+            int? quantity = obj as int?;
+
+            if (quantity != null)
+            {
+                var coinList = _coinService.GetCertainCoins(quantity.Value);
+
+                if (coinList != null && coinList.Length > 0)
+                {
+                    Coins.Clear();
+
+                    foreach (var coin in coinList)
+                    {
+                        Coins.Add(coin);
+                    }
+                }
+            }
+        });
     }
 }

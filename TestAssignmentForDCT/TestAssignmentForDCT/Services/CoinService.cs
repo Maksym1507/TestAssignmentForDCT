@@ -17,7 +17,7 @@ namespace TestAssignmentForDCT.Services
             _options = options.Value;
         }
 
-        public CoinModel[] GetCertainCoinsAsync(int quantity)
+        public CoinModel[] GetCertainCoins(int quantity)
         {
             var coinList = _httpClientService.Send<CoinResponse, object>(
                 $"{_options.Host}assets?limit={quantity}", HttpMethod.Get);
