@@ -1,53 +1,31 @@
-﻿using System.Collections.ObjectModel;
-using TestAssignmentForDCT.Models;
-using TestAssignmentForDCT.MVVM;
+﻿using System.Windows.Input;
+using TestAssignmentForDCT.Commands;
 using TestAssignmentForDCT.Services.Abstractions;
 
 namespace TestAssignmentForDCT.ViewModels
 {
-    public class MainWindowViewModel : ViewModalBase
+    public class MainWindowViewModel : ViewModelBase
     {
-        private readonly ICoinService _coinService;
+        public ICoinService CoinService { get; }
 
         public MainWindowViewModel(ICoinService coinService)
         {
-            _coinService = coinService;
-            var coinList = _coinService.GetCertainCoins(Quantity);
-            Coins = new ObservableCollection<CoinModel>(coinList);
+            CoinService = coinService;
+            UpdateViewCommand = new UpdateViewCommand(this, coinService);            
         }
 
-        public ObservableCollection<CoinModel> Coins { get; set; }
+        private ViewModelBase _selectedViewModel = new HomeViewModel();
 
-        private int _quantity = 10;
-
-        public int Quantity
+        public ViewModelBase SelectedViewModel
         {
-            get { return _quantity; }
-            set
-            {
-                _quantity = value;
-                OnPropertyChanged();
+            get { return _selectedViewModel; }
+            set 
+            { 
+                _selectedViewModel = value;
+                OnPropertyChanged(nameof(SelectedViewModel));
             }
         }
 
-        public RelayCommand GetCertainCoinsCommand => new RelayCommand(obj =>
-        {
-            int? quantity = obj as int?;
-
-            if (quantity != null && quantity > 0 && quantity <= 2000)
-            {
-                var coinList = _coinService.GetCertainCoins(quantity.Value);
-
-                if (coinList != null && coinList.Length > 0)
-                {
-                    Coins.Clear();
-
-                    foreach (var coin in coinList)
-                    {
-                        Coins.Add(coin);
-                    }
-                }
-            }
-        });
+        public ICommand UpdateViewCommand { get; set; }
     }
 }

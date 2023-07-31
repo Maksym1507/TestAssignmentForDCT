@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace TestAssignmentForDCT.MVVM
+namespace TestAssignmentForDCT.Commands
 {
     public class RelayCommand : ICommand
     {
