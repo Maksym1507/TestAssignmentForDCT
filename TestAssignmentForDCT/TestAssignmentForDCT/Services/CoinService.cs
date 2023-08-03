@@ -19,7 +19,7 @@ namespace TestAssignmentForDCT.Services
 
         public CoinModel[] GetCertainCoins(int quantity)
         {
-            var coinList = _httpClientService.Send<CoinResponse, object>(
+            var coinList = _httpClientService.Send<CoinListResponse, object>(
                 $"{_options.Host}assets?limit={quantity}", HttpMethod.Get);
 
             return coinList.Data;

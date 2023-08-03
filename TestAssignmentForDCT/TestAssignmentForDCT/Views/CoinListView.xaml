@@ -23,6 +23,10 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Text="Search by coin name" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,5,5,5" FontSize="13"/>
+            <TextBox Text="{Binding CoinName, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Center" VerticalContentAlignment="Center" Width="200" Height="30" Margin="0,0,15,0"/>
+            <Button Content="Coin Details" Width="70" Height="30" Margin="0,0,15,0"
+                Command="{Binding GetCoinInfoByIdCommand}" />
             <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="50" Height="30" Margin="0,0,5,0"/>
             <Button Content="Get" Width="30" Height="30" Margin="0,0,5,0"
                 Command="{Binding GetCertainCoinsCommand}" CommandParameter="{Binding Quantity}"/>
@@ -30,14 +34,15 @@
 
         <Grid Grid.Row="1" Grid.Column="1">
             <DataGrid
-                ItemsSource="{Binding Coins}"
+                ItemsSource="{Binding CoinCollection}"
+                SelectedItem="{Binding SelectedCoin}"
                 CanUserAddRows="False" CanUserDeleteRows="False"
                 AutoGenerateColumns="False" Margin="5,0,5,5">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Rank}" Header="Rank" IsReadOnly="True" Width="1*"/>
+                    <DataGridTextColumn Binding="{Binding Rank}" Header="Rank" IsReadOnly="True" Width="0.5*"/>
                     <DataGridTextColumn Binding="{Binding Name}" Header="Name" IsReadOnly="True" Width="1.5*"/>
                     <DataGridTextColumn Binding="{Binding PriceUsd, Converter={StaticResource numericFormatConverter}, ConverterParameter=2, StringFormat={} {0:c}$}" Header="PriceUsd" IsReadOnly="True" Width="1.5*"/>
-                    <DataGridTextColumn Binding="{Binding VolumeUsd24Hr, Converter={StaticResource numericFormatConverter}, ConverterParameter=2, StringFormat={} {0:c}$}" Header="Volume" IsReadOnly="True" Width="2.5*"/>
+                    <DataGridTextColumn Binding="{Binding VolumeUsd24Hr, Converter={StaticResource numericFormatConverter}, ConverterParameter=2, StringFormat={} {0:c}$}" Header="Volume" IsReadOnly="True" Width="2*"/>
                     <DataGridTextColumn Binding="{Binding ChangePercent24Hr, Converter={StaticResource numericFormatConverter}, ConverterParameter=2, StringFormat={} {0:p}%}" Header="Change" IsReadOnly="True" Width="1.5*"/>
                     <DataGridTextColumn Binding="{Binding Vwap24Hr, Converter={StaticResource numericFormatConverter}, ConverterParameter=2, StringFormat={} {0:c}$}" Header="Vwap" IsReadOnly="True" Width="1.5*"/>
                 </DataGrid.Columns>

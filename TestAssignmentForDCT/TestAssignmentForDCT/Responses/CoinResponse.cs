@@ -1,9 +1,9 @@
 ﻿using TestAssignmentForDCT.Models;
 
-namespace TestAssignmentForDCT
+namespace TestAssignmentForDCT.Responses
 {
     public class CoinResponse
     {
-        public CoinModel[] Data { get; set; }
+        public CoinModel Data { get; set; }
     }
 }
