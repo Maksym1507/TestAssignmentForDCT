@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using System.Net.Http;
-using TestAssignmentForDCT.Config;
+using TestAssignmentForDCT.Configs;
 using TestAssignmentForDCT.Models;
+using TestAssignmentForDCT.Responses;
 using TestAssignmentForDCT.Services.Abstractions;
 
 namespace TestAssignmentForDCT.Services
@@ -23,6 +24,14 @@ namespace TestAssignmentForDCT.Services
                 $"{_options.Host}assets?limit={quantity}", HttpMethod.Get);
 
             return coinList.Data;
+        }
+
+        public CoinModel GetCoinById(string id)
+        {
+            var coin = _httpClientService.Send<CoinResponse, object>(
+                $"{_options.Host}assets/{id}", HttpMethod.Get);
+
+            return coin.Data;
         }
     }
 }

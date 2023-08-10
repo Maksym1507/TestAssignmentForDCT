@@ -1,0 +1,25 @@
+﻿<Window x:Class="TestAssignmentForDCT.Views.DialogWindows.CoinDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" Height="450" Width="400"
+        MinHeight="450" MinWidth="400" 
+        MaxHeight="450" MaxWidth="400" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel Margin="2,0,0,0">
+            <TextBlock Text="{Binding Coin.Rank, StringFormat={}Rank: {0}}" FontSize="18"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Coin.Name, StringFormat={}{0:F2}}" FontSize="26"/>
+                <TextBlock Text="{Binding Coin.Symbol, StringFormat={}{0:F2}}" FontSize="18" Margin="10,8,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Coin.Price, StringFormat={}Price: {0:F2}$}" FontSize="16" />
+                <TextBlock Text="{Binding Coin.Change, StringFormat={}({0:F2}%)}" FontSize="16" Margin="5,0,0,0" />
+            </StackPanel>
+            <TextBlock Text="{Binding Coin.Volume, StringFormat={}Volume: {0:F2}$}" FontSize="16"/>
+            <TextBlock Text="{Binding Coin.Supply, StringFormat={}Supply: {0}}" FontSize="16"/>
+            <TextBlock Text="{Binding Coin.MaxSupply, StringFormat={}Max supply: {0}}" FontSize="16"/>           
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,8 +1,5 @@
-﻿using Microsoft.Extensions.Options;
-using System;
+﻿using System;
 using System.Windows.Input;
-using TestAssignmentForDCT.Config;
-using TestAssignmentForDCT.Services;
 using TestAssignmentForDCT.Services.Abstractions;
 using TestAssignmentForDCT.ViewModels;
 
@@ -12,11 +9,13 @@ namespace TestAssignmentForDCT.Commands
     {
         private MainWindowViewModel _viewModel;
         private readonly ICoinService _coinService;
+        private readonly IDialogService _dialogService;
 
-        public UpdateViewCommand(MainWindowViewModel viewModel, ICoinService coinService)
+        public UpdateViewCommand(MainWindowViewModel viewModel, ICoinService coinService, IDialogService dialogService)
         {
             _viewModel = viewModel;
             _coinService = coinService;
+            _dialogService = dialogService;
         }
 
         public event EventHandler? CanExecuteChanged;
@@ -34,7 +33,7 @@ namespace TestAssignmentForDCT.Commands
             }
             else if (parameter?.ToString() == "CoinList")
             {
-                _viewModel.SelectedViewModel = new CoinListViewModel(_coinService);
+                _viewModel.SelectedViewModel = new CoinListViewModel(_coinService, _dialogService);
             }
         }
     }

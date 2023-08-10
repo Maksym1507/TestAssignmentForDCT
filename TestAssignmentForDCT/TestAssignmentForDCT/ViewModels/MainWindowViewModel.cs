@@ -6,15 +6,18 @@ namespace TestAssignmentForDCT.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public ICoinService CoinService { get; }
+        private readonly ICoinService _coinService;
+        private readonly IDialogService _dialogService;
 
-        public MainWindowViewModel(ICoinService coinService)
+        public MainWindowViewModel(ICoinService coinService, IDialogService dialogService)
         {
-            CoinService = coinService;
-            UpdateViewCommand = new UpdateViewCommand(this, coinService);            
+            _coinService = coinService;
+            _dialogService = dialogService;
+            UpdateViewCommand = new UpdateViewCommand(this, coinService, dialogService);
+            _selectedViewModel = new CoinListViewModel(_coinService, _dialogService);
         }
 
-        private ViewModelBase _selectedViewModel = new HomeViewModel();
+        private ViewModelBase _selectedViewModel;
 
         public ViewModelBase SelectedViewModel
         {

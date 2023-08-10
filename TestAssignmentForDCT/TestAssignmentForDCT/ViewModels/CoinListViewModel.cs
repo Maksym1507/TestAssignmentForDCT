@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Data;
 using TestAssignmentForDCT.Commands;
 using TestAssignmentForDCT.Models;
@@ -11,14 +10,17 @@ namespace TestAssignmentForDCT.ViewModels
     public class CoinListViewModel : ViewModelBase
     {
         private readonly ICoinService _coinService;
+        private readonly IDialogService _dialogService;
+        private ICollectionView _coinCollection;
+
         private int _quantity = 10;
         private CoinModel _selectedCoin;
-        private ICollectionView _coinCollection;
         private string _coinName = string.Empty;
 
-        public CoinListViewModel(ICoinService coinService)
+        public CoinListViewModel(ICoinService coinService, IDialogService dialogService)
         {
             _coinService = coinService;
+            _dialogService = dialogService;
             var coinList = _coinService.GetCertainCoins(Quantity);
             Coins = new ObservableCollection<CoinModel>(coinList);
             CoinCollection = CollectionViewSource.GetDefaultView(Coins);
@@ -96,7 +98,17 @@ namespace TestAssignmentForDCT.ViewModels
 
         public RelayCommand GetCoinInfoByIdCommand => new RelayCommand(obj =>
         {
-            MessageBox.Show(SelectedCoin.Name);
+            var coin = _coinService.GetCoinById(SelectedCoin.Id);
+
+            if (coin != null)
+            {
+                var coinDetailsViewModel = new CoinDetailsViewModel
+                {
+                    Coin = coin
+                };
+
+                _dialogService.ShowDialog("CoinDetailsWindow", coinDetailsViewModel);
+            }
 
         }, canExecute => SelectedCoin != null);
 

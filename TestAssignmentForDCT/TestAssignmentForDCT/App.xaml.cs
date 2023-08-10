@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
 using TestAssignmentForDCT;
-using TestAssignmentForDCT.Config;
+using TestAssignmentForDCT.Configs;
 using TestAssignmentForDCT.Services.Abstractions;
 using TestAssignmentForDCT.Services;
 using TestAssignmentForDCT.ViewModels;
@@ -30,6 +30,7 @@ namespace Wpf_Using_ViewModels_in_MVVM
             services.AddOptions<ApiOption>().Bind(configuration.GetSection("Api"));
             services.AddTransient<IHttpClientService, HttpClientService>();
             services.AddTransient<ICoinService, CoinService>();
+            services.AddTransient<IDialogService, DialogService>();
             services.AddSingleton<MainWindowViewModel>();
 
             _serviceProvider = services.BuildServiceProvider();

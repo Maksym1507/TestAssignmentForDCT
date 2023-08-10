@@ -1,4 +1,4 @@
-﻿namespace TestAssignmentForDCT.Config
+﻿namespace TestAssignmentForDCT.Configs
 {
     public class ApiOption
     {
